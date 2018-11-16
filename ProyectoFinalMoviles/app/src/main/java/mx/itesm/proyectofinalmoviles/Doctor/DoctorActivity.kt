@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.os.Environment
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_doctor.*
-import mx.itesm.proyectofinalmoviles.MainActivity
 import mx.itesm.proyectofinalmoviles.Paciente.Paciente
 import mx.itesm.proyectofinalmoviles.Paciente.PacientesDoctores
 import mx.itesm.proyectofinalmoviles.Paciente.Registro
@@ -19,18 +17,14 @@ import mx.itesm.proyectofinalmoviles.SessionManager
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
-import java.util.Arrays
 import com.opencsv.CSVWriter
 import com.opencsv.bean.ColumnPositionMappingStrategy
 import com.opencsv.bean.StatefulBeanToCsv
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import android.content.pm.PackageManager
-import android.os.Build
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-//import java.util.jar.Manifest
 import android.Manifest
-import javax.xml.xpath.XPathConstants.STRING
 
 
 class DoctorActivity : AppCompatActivity() {
@@ -46,7 +40,7 @@ class DoctorActivity : AppCompatActivity() {
     lateinit var listPacientes: MutableList<Paciente>
     lateinit var listPendientes: MutableList<PacientesDoctores>
     lateinit var session: SessionManager
-    private val CSV_HEADER = arrayOf<String>("id_username", "sistole", "diastole", "pulso", "tipo", "fecha")
+    private val CSV_HEADER = arrayOf("id_username", "sistole", "diastole", "pulso", "tipo", "fecha")
     lateinit var downloadRegisters: ArrayList<RegistrosCSV>
 
 
@@ -54,8 +48,8 @@ class DoctorActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.doctor_registrar_paciente -> {
                 supportActionBar!!.title = "Registrar Pacientes"
-                tituloDoctor.setText("Registro de Paciente Nuevo")
-                buttonDoctor.setText("Registrar")
+                tituloDoctor.setText(R.string.registro_paciente)
+                buttonDoctor.setText(R.string.registro_paciente_button)
                 registrarPacienteNuevo.visibility = View.VISIBLE
                 opcion = "Registro Paciente"
 
@@ -70,8 +64,8 @@ class DoctorActivity : AppCompatActivity() {
             }
             R.id.doctor_descargar_informacion -> {
                 supportActionBar!!.title = "Descargar Información"
-                tituloDoctor.setText("Descarga de información de pacientes")
-                buttonDoctor.setText("Descargar")
+                tituloDoctor.setText(R.string.descargar_info)
+                buttonDoctor.setText(R.string.descargar_info_button)
                 registrarPacienteNuevo.visibility = View.INVISIBLE
                 opcion = "Descarga Informacion"
 
@@ -92,7 +86,7 @@ class DoctorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor)
         supportActionBar!!.title = "Registrar Pacientes"
-        tituloDoctor.setText("Registro de Paciente Nuevo")
+        tituloDoctor.setText(R.string.registro_paciente_nuevo)
         registrarPacienteNuevo.visibility = View.VISIBLE
 
         session = SessionManager(applicationContext)
@@ -100,7 +94,7 @@ class DoctorActivity : AppCompatActivity() {
         logoutDoctor.setOnClickListener {
             session.LogoutUser()
         }
-        var user: HashMap<String, String> = session.getUserDetails()
+        val user: HashMap<String, String> = session.getUserDetails()
         doctor_id = user.get(SessionManager.KEY_NAME)!!
 
 
@@ -150,8 +144,6 @@ class DoctorActivity : AppCompatActivity() {
             }
         }
         mDatabaseReference_Registros.addChildEventListener(mChildEventListener_Registros)
-
-
 
 
 
@@ -317,7 +309,7 @@ class DoctorActivity : AppCompatActivity() {
                     val filePath = baseDir + File.separator + fileName
                     var fileWriter: FileWriter? = null
                     var csvWriter: CSVWriter? = null
-                    var beanToCsv: StatefulBeanToCsv<RegistrosCSV>?
+                    val beanToCsv: StatefulBeanToCsv<RegistrosCSV>?
 
                     try {
                         fileWriter = FileWriter(filePath)
@@ -335,7 +327,7 @@ class DoctorActivity : AppCompatActivity() {
                         downloadRegisters = arrayListOf()
 
                         for (r in listRegistros) {
-                            var newRegister = RegistrosCSV(r.id_username, r.sistole, r.diastole, r.pulso, r.tipo, r.fecha)
+                            val newRegister = RegistrosCSV(r.id_username, r.sistole, r.diastole, r.pulso, r.tipo, r.fecha)
                             downloadRegisters.add(newRegister)
                         }
 

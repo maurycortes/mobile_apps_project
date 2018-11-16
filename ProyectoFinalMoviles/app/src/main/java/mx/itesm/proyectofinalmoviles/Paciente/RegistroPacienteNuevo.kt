@@ -32,7 +32,6 @@ class RegistroPacienteNuevo : AppCompatActivity() {
         val doctor_id = extras.getString(MainActivity.DOCTOR_ID)!!
 
 
-
         guardarPacienteInfo.setOnClickListener {
             val nombrePaciente = findViewById(R.id.nombre) as EditText
             val nombre = nombrePaciente.text.toString()
@@ -65,7 +64,7 @@ class RegistroPacienteNuevo : AppCompatActivity() {
             //Ir a la pagina principal de los pacientes
             session = SessionManager(applicationContext)
             session.createLoginSession(paciente_id, "paciente")
-            var i: Intent = Intent(applicationContext, PacienteActivity::class.java)
+            val i = Intent(applicationContext, PacienteActivity::class.java)
             startActivity(i)
             finish()
         }

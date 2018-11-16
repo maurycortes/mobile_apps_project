@@ -3,15 +3,12 @@ package mx.itesm.proyectofinalmoviles
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.se.omapi.Session
 import android.view.View
 import android.widget.*
 import com.google.firebase.database.*
 import mx.itesm.proyectofinalmoviles.Doctor.DoctorActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_paciente.*
 import mx.itesm.proyectofinalmoviles.Doctor.Doctor
-import mx.itesm.proyectofinalmoviles.SessionManager
 import mx.itesm.proyectofinalmoviles.Paciente.*
 
 
@@ -25,12 +22,10 @@ class MainActivity : AppCompatActivity() {
         var paciente = "nuevo"
         var match = false
     }
-    //lateinit var ref: DatabaseReference
     lateinit var listPacientes: MutableList<Paciente>
     lateinit var listDoctores: MutableList<Doctor>
     lateinit var listPendientes: MutableList<PacientesDoctores>
     lateinit var session: SessionManager
-    //private var mMessageReference: DatabaseReference? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -163,9 +158,9 @@ class MainActivity : AppCompatActivity() {
         * */
         session = SessionManager(applicationContext)
         if(session.isLoggedIn()) {
-            var user: HashMap<String, String> = session.getUserDetails()
-            var userType: String = user.get(SessionManager.USER_TYPE)!!
-            var i: Intent = Intent(applicationContext, PacienteActivity::class.java)
+            val user: HashMap<String, String> = session.getUserDetails()
+            val userType: String = user.get(SessionManager.USER_TYPE)!!
+            var i = Intent(applicationContext, PacienteActivity::class.java)
             if (userType == "paciente") {
                 i = Intent(applicationContext, PacienteActivity::class.java)
             } else {
@@ -227,7 +222,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (paciente == "existe" && doctor_status == "existe" && match) {
                     session.createLoginSession(user_id, "paciente") //Create new session
-                    var i: Intent = Intent(applicationContext, PacienteActivity::class.java)
+                    val i = Intent(applicationContext, PacienteActivity::class.java)
                     startActivity(i)
                     finish()
                 } else if (paciente == "pendiente" && match) {
@@ -253,7 +248,7 @@ class MainActivity : AppCompatActivity() {
                 if(doctor_status == "existe") {
                     val doctor_id_clean = doctor_id.substring(7, doctor_id.length)
                     session.createLoginSession(doctor_id_clean, "doctor")
-                    var i: Intent = Intent(applicationContext, DoctorActivity::class.java)
+                    val i = Intent(applicationContext, DoctorActivity::class.java)
                     startActivity(i)
                     finish()
                 } else {
