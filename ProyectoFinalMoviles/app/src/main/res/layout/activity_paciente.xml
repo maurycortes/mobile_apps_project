@@ -28,11 +28,11 @@
         android:layout_height="577dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="70dp"
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/list_historicos_protocolo"
@@ -40,7 +40,7 @@
         android:layout_height="577dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="70dp"
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +87,8 @@
         android:layout_marginTop="8dp"
         android:text="@string/iniciar_timer_button"
         android:textSize="30sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/button_background_timer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer" />
@@ -146,6 +148,8 @@
         android:layout_marginTop="8dp"
         android:text="@string/guardar_button"
         android:textSize="30sp"
+        android:textColor="@color/colorSuccess"
+        android:background="@drawable/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
@@ -157,8 +161,10 @@
         android:id="@+id/logoutPaciente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background_logout"
         android:text="@string/logout_button"
+        android:textColor="@color/colorLogout"
         android:textSize="20sp"
         app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintLeft_toLeftOf="parent"

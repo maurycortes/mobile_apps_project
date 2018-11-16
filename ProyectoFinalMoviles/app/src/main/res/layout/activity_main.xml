@@ -76,6 +76,8 @@
         android:layout_marginTop="8dp"
         android:text="@string/entrar_button"
         android:textSize="30sp"
+        android:textColor="@color/colorSuccess"
+        android:background="@drawable/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

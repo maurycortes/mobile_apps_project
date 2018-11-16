@@ -29,13 +29,13 @@ class PacienteActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.toma_datos_aleatorio -> {
                 supportActionBar!!.title = paciente_title
-                tituloPacienteHistoricos.visibility = View.GONE
-                list_historicos_protocolo.visibility = View.GONE
-                list_historicos_aleatorio.visibility = View.GONE
+                tituloPacienteHistoricos.visibility = View.INVISIBLE
+                list_historicos_protocolo.visibility = View.INVISIBLE
+                list_historicos_aleatorio.visibility = View.INVISIBLE
                 tituloPaciente.setText(R.string.analisis_aleatorio)
                 tituloPaciente.visibility = View.VISIBLE
-                timer.visibility = View.GONE
-                iniciarTimer.visibility = View.GONE
+                timer.visibility = View.INVISIBLE
+                iniciarTimer.visibility = View.INVISIBLE
                 sistole.visibility = View.VISIBLE
                 diastole.visibility = View.VISIBLE
                 pulso.visibility = View.VISIBLE
@@ -59,9 +59,9 @@ class PacienteActivity : AppCompatActivity() {
             }
             R.id.toma_datos_protocolo -> {
                 supportActionBar!!.title = paciente_title
-                tituloPacienteHistoricos.visibility = View.GONE
-                list_historicos_protocolo.visibility = View.GONE
-                list_historicos_aleatorio.visibility = View.GONE
+                tituloPacienteHistoricos.visibility = View.INVISIBLE
+                list_historicos_protocolo.visibility = View.INVISIBLE
+                list_historicos_aleatorio.visibility = View.INVISIBLE
                 tituloPaciente.setText(R.string.analisis_protocolo)
                 tituloPaciente.visibility = View.VISIBLE
                 timer.visibility = View.VISIBLE
@@ -74,6 +74,7 @@ class PacienteActivity : AppCompatActivity() {
                 diastole.isEnabled = false
                 pulso.isEnabled = false
                 guardar.isEnabled = false
+                iniciarTimer.isEnabled = true
 
                 iniciarTimer.setOnClickListener {
                     object : CountDownTimer(300000, 1000) {
@@ -104,6 +105,7 @@ class PacienteActivity : AppCompatActivity() {
                             guardar.isEnabled = true
                         }
                     }.start()
+                    iniciarTimer.isEnabled = false
                 }
 
 
@@ -122,14 +124,14 @@ class PacienteActivity : AppCompatActivity() {
             R.id.historicos_aleatorio -> {
                 supportActionBar!!.title = paciente_title
                 tituloPacienteHistoricos.visibility = View.VISIBLE
-                tituloPaciente.visibility = View.GONE
-                timer.visibility = View.GONE
-                iniciarTimer.visibility = View.GONE
-                sistole.visibility = View.GONE
-                diastole.visibility = View.GONE
-                pulso.visibility = View.GONE
-                guardar.visibility = View.GONE
-                list_historicos_protocolo.visibility = View.GONE
+                tituloPaciente.visibility = View.INVISIBLE
+                timer.visibility = View.INVISIBLE
+                iniciarTimer.visibility = View.INVISIBLE
+                sistole.visibility = View.INVISIBLE
+                diastole.visibility = View.INVISIBLE
+                pulso.visibility = View.INVISIBLE
+                guardar.visibility = View.INVISIBLE
+                list_historicos_protocolo.visibility = View.INVISIBLE
                 list_historicos_aleatorio.visibility = View.VISIBLE
 
 
@@ -145,14 +147,14 @@ class PacienteActivity : AppCompatActivity() {
             R.id.historicos_protocolo -> {
                 supportActionBar!!.title = paciente_title
                 tituloPacienteHistoricos.visibility = View.VISIBLE
-                tituloPaciente.visibility = View.GONE
-                timer.visibility = View.GONE
-                iniciarTimer.visibility = View.GONE
-                sistole.visibility = View.GONE
-                diastole.visibility = View.GONE
-                pulso.visibility = View.GONE
-                guardar.visibility = View.GONE
-                list_historicos_aleatorio.visibility = View.GONE
+                tituloPaciente.visibility = View.INVISIBLE
+                timer.visibility = View.INVISIBLE
+                iniciarTimer.visibility = View.INVISIBLE
+                sistole.visibility = View.INVISIBLE
+                diastole.visibility = View.INVISIBLE
+                pulso.visibility = View.INVISIBLE
+                guardar.visibility = View.INVISIBLE
+                list_historicos_aleatorio.visibility = View.INVISIBLE
                 list_historicos_protocolo.visibility = View.VISIBLE
 
                 val registrosProtocolo = filtrarHistoricos("Protocolo")
@@ -186,16 +188,16 @@ class PacienteActivity : AppCompatActivity() {
 
         supportActionBar!!.title = paciente_title
         tituloPaciente.setText(R.string.analisis_aleatorio)
-        tituloPacienteHistoricos.visibility = View.GONE
+        tituloPacienteHistoricos.visibility = View.INVISIBLE
         tituloPaciente.visibility = View.VISIBLE
-        timer.visibility = View.GONE
-        iniciarTimer.visibility = View.GONE
+        timer.visibility = View.INVISIBLE
+        iniciarTimer.visibility = View.INVISIBLE
         sistole.visibility = View.VISIBLE
         diastole.visibility = View.VISIBLE
         pulso.visibility = View.VISIBLE
         guardar.visibility = View.VISIBLE
-        list_historicos_aleatorio.visibility = View.GONE
-        list_historicos_protocolo.visibility = View.GONE
+        list_historicos_aleatorio.visibility = View.INVISIBLE
+        list_historicos_protocolo.visibility = View.INVISIBLE
         guardar.setOnClickListener {
             setDatosPacienteValidation("Aleatorio")
             sistole.text.clear()
@@ -313,7 +315,7 @@ class PacienteActivity : AppCompatActivity() {
 
         for (r in listRegistros) {
             if (r.tipo == tipo && r.id_username == paciente_id) {
-                data = "Sistole: " + r.sistole + " Diastole: " + r.diastole + " Pulso: " + r.pulso + "\n\n Fecha: " + r.fecha + "\n"
+                data = "Sistole: " + r.sistole + " Diastole: " + r.diastole + " Pulso: " + r.pulso + "\n\nFecha: " + r.fecha + "\n"
                 tempData.add(data)
             }
         }
