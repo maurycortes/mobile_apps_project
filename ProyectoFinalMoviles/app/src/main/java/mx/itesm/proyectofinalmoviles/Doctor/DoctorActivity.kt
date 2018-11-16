@@ -40,6 +40,7 @@ class DoctorActivity : AppCompatActivity() {
     lateinit var listPacientes: MutableList<Paciente>
     lateinit var listPendientes: MutableList<PacientesDoctores>
     lateinit var session: SessionManager
+    lateinit var doctor_title: String
     private val CSV_HEADER = arrayOf("id_username", "sistole", "diastole", "pulso", "tipo", "fecha")
     lateinit var downloadRegisters: ArrayList<RegistrosCSV>
 
@@ -47,7 +48,7 @@ class DoctorActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.doctor_registrar_paciente -> {
-                supportActionBar!!.title = "Registrar Pacientes"
+                supportActionBar!!.title = doctor_title
                 tituloDoctor.setText(R.string.registro_paciente)
                 buttonDoctor.setText(R.string.registro_paciente_button)
                 registrarPacienteNuevo.visibility = View.VISIBLE
@@ -63,7 +64,7 @@ class DoctorActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.doctor_descargar_informacion -> {
-                supportActionBar!!.title = "Descargar Información"
+                supportActionBar!!.title = doctor_title
                 tituloDoctor.setText(R.string.descargar_info)
                 buttonDoctor.setText(R.string.descargar_info_button)
                 registrarPacienteNuevo.visibility = View.INVISIBLE
@@ -85,9 +86,7 @@ class DoctorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor)
-        supportActionBar!!.title = "Registrar Pacientes"
-        tituloDoctor.setText(R.string.registro_paciente_nuevo)
-        registrarPacienteNuevo.visibility = View.VISIBLE
+
 
         session = SessionManager(applicationContext)
         session.checkLogin()
@@ -96,12 +95,14 @@ class DoctorActivity : AppCompatActivity() {
         }
         val user: HashMap<String, String> = session.getUserDetails()
         doctor_id = user.get(SessionManager.KEY_NAME)!!
-
-
         //Set the doctor username
-        val titleTextDoctor = "Doctor: " + doctor_id
-        usernameDoctor.setText(titleTextDoctor)
+        doctor_title = "Doctor: " + doctor_id
 
+
+
+        supportActionBar!!.title = doctor_title
+        tituloDoctor.setText(R.string.registro_paciente_nuevo)
+        registrarPacienteNuevo.visibility = View.VISIBLE
 
 
         buttonDoctor.setOnClickListener {

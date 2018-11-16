@@ -23,13 +23,13 @@ class PacienteActivity : AppCompatActivity() {
     lateinit var listRegistros: MutableList<Registro>
     lateinit var paciente_id: String
     lateinit var session: SessionManager
+    lateinit var paciente_title: String
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.toma_datos_aleatorio -> {
-                supportActionBar!!.title = "Toma de datos aleatorios"
+                supportActionBar!!.title = paciente_title
                 tituloPacienteHistoricos.visibility = View.GONE
-                usernamePaciente.visibility = View.VISIBLE
                 list_historicos_protocolo.visibility = View.GONE
                 list_historicos_aleatorio.visibility = View.GONE
                 tituloPaciente.setText(R.string.analisis_aleatorio)
@@ -58,9 +58,8 @@ class PacienteActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.toma_datos_protocolo -> {
-                supportActionBar!!.title = "Toma de datos por protocolo"
+                supportActionBar!!.title = paciente_title
                 tituloPacienteHistoricos.visibility = View.GONE
-                usernamePaciente.visibility = View.VISIBLE
                 list_historicos_protocolo.visibility = View.GONE
                 list_historicos_aleatorio.visibility = View.GONE
                 tituloPaciente.setText(R.string.analisis_protocolo)
@@ -121,9 +120,8 @@ class PacienteActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.historicos_aleatorio -> {
-                supportActionBar!!.title = "Datos históricos aleatorios"
+                supportActionBar!!.title = paciente_title
                 tituloPacienteHistoricos.visibility = View.VISIBLE
-                usernamePaciente.visibility = View.GONE
                 tituloPaciente.visibility = View.GONE
                 timer.visibility = View.GONE
                 iniciarTimer.visibility = View.GONE
@@ -145,9 +143,8 @@ class PacienteActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.historicos_protocolo -> {
-                supportActionBar!!.title = "Datos históricos por protocolo"
+                supportActionBar!!.title = paciente_title
                 tituloPacienteHistoricos.visibility = View.VISIBLE
-                usernamePaciente.visibility = View.GONE
                 tituloPaciente.visibility = View.GONE
                 timer.visibility = View.GONE
                 iniciarTimer.visibility = View.GONE
@@ -174,6 +171,20 @@ class PacienteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_paciente)
+
+        //Checar Session
+        session = SessionManager(applicationContext)
+        session.checkLogin()
+        logoutPaciente.setOnClickListener {
+            session.LogoutUser()
+        }
+        val user: HashMap<String, String> = session.getUserDetails()
+        paciente_id = user.get(SessionManager.KEY_NAME)!!
+        //Set the patient username in the title of the activity
+        paciente_title = "Paciente: " + paciente_id
+
+
+        supportActionBar!!.title = paciente_title
         tituloPaciente.setText(R.string.analisis_aleatorio)
         tituloPacienteHistoricos.visibility = View.GONE
         tituloPaciente.visibility = View.VISIBLE
@@ -191,22 +202,6 @@ class PacienteActivity : AppCompatActivity() {
             diastole.text.clear()
             pulso.text.clear()
         }
-
-
-
-        //Checar Session
-        session = SessionManager(applicationContext)
-        session.checkLogin()
-        logoutPaciente.setOnClickListener {
-            session.LogoutUser()
-        }
-        val user: HashMap<String, String> = session.getUserDetails()
-        paciente_id = user.get(SessionManager.KEY_NAME)!!
-
-
-        //Set the doctor username
-        val titleTextPaciente = "Paciente: " + paciente_id
-        usernamePaciente.setText(titleTextPaciente)
 
 
 

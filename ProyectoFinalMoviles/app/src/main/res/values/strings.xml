@@ -46,7 +46,7 @@
     <string name="captura_diastole">Captura Diástole</string>
     <string name="captura_pulso">Captura Pulso</string>
     <string name="guardar_button">Guardar</string>
-    <string name="logout_button">Logout</string>
+    <string name="logout_button">Salir</string>
 
 
     <!--Activity Registro Paciente Nuevo-->
