@@ -8,9 +8,9 @@ import java.util.HashMap
 
 class SessionManager {
 
-    lateinit var pref: SharedPreferences
-    lateinit var editor: SharedPreferences.Editor
-    lateinit var con: Context
+    var pref: SharedPreferences
+    var editor: SharedPreferences.Editor
+    var con: Context
     var PRIVATE_MODE: Int = 0
 
     constructor(con: Context) {
@@ -35,7 +35,7 @@ class SessionManager {
 
     fun checkLogin() {
         if(!this.isLoggedIn()) {
-            var i: Intent = Intent(con, MainActivity::class.java)
+            val i = Intent(con, MainActivity::class.java)
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             con.startActivity(i)
@@ -43,9 +43,9 @@ class SessionManager {
     }
 
     fun getUserDetails() : HashMap<String, String> {
-        var user: Map<String, String> = HashMap<String, String>()
-        (user as HashMap).put(KEY_NAME, pref.getString(KEY_NAME, null))
-        (user as HashMap).put(USER_TYPE, pref.getString(USER_TYPE, null))
+        val user: Map<String, String> = HashMap()
+        (user as HashMap).put(KEY_NAME, pref.getString(KEY_NAME, null)!!)
+        (user).put(USER_TYPE, pref.getString(USER_TYPE, null)!!)
         return user
     }
 
@@ -53,7 +53,7 @@ class SessionManager {
         editor.clear()
         editor.commit()
 
-        var i: Intent = Intent(con, MainActivity::class.java)
+        val i = Intent(con, MainActivity::class.java)
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         con.startActivity(i)

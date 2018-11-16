@@ -6,12 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.Spinner
 import android.widget.Toast
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_doctor.*
 import kotlinx.android.synthetic.main.activity_paciente.*
-import mx.itesm.proyectofinalmoviles.MainActivity
 import mx.itesm.proyectofinalmoviles.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,17 +22,17 @@ class PacienteActivity : AppCompatActivity() {
 
     lateinit var listRegistros: MutableList<Registro>
     lateinit var paciente_id: String
-    lateinit var doctor_id: String
     lateinit var session: SessionManager
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.toma_datos_aleatorio -> {
                 supportActionBar!!.title = "Toma de datos aleatorios"
+                tituloPacienteHistoricos.visibility = View.GONE
                 usernamePaciente.visibility = View.VISIBLE
                 list_historicos_protocolo.visibility = View.GONE
                 list_historicos_aleatorio.visibility = View.GONE
-                tituloPaciente.setText("Análisis aleatorio")
+                tituloPaciente.setText(R.string.analisis_aleatorio)
                 tituloPaciente.visibility = View.VISIBLE
                 timer.visibility = View.GONE
                 iniciarTimer.visibility = View.GONE
@@ -62,10 +59,11 @@ class PacienteActivity : AppCompatActivity() {
             }
             R.id.toma_datos_protocolo -> {
                 supportActionBar!!.title = "Toma de datos por protocolo"
+                tituloPacienteHistoricos.visibility = View.GONE
                 usernamePaciente.visibility = View.VISIBLE
                 list_historicos_protocolo.visibility = View.GONE
                 list_historicos_aleatorio.visibility = View.GONE
-                tituloPaciente.setText("Análisis por protocolo")
+                tituloPaciente.setText(R.string.analisis_protocolo)
                 tituloPaciente.visibility = View.VISIBLE
                 timer.visibility = View.VISIBLE
                 iniciarTimer.visibility = View.VISIBLE
@@ -91,13 +89,12 @@ class PacienteActivity : AppCompatActivity() {
                             timer.setText(time)
                         }
                         override fun onFinish() {
-                            timer.setText("Terminado!")
+                            timer.setText(R.string.timer_terminado)
 
                             val timerAlert = AlertDialog.Builder(this@PacienteActivity)
                             timerAlert.setTitle("Aviso Importante")
                             timerAlert.setMessage("El tiempo de espera ha terminado, continua introduciendo la información por protocolo.")
                             timerAlert.setPositiveButton("OK") { dialog, which ->
-
                             }
                             val dialog: AlertDialog = timerAlert.create()
                             dialog.show()
@@ -125,6 +122,7 @@ class PacienteActivity : AppCompatActivity() {
             }
             R.id.historicos_aleatorio -> {
                 supportActionBar!!.title = "Datos históricos aleatorios"
+                tituloPacienteHistoricos.visibility = View.VISIBLE
                 usernamePaciente.visibility = View.GONE
                 tituloPaciente.visibility = View.GONE
                 timer.visibility = View.GONE
@@ -148,6 +146,7 @@ class PacienteActivity : AppCompatActivity() {
             }
             R.id.historicos_protocolo -> {
                 supportActionBar!!.title = "Datos históricos por protocolo"
+                tituloPacienteHistoricos.visibility = View.VISIBLE
                 usernamePaciente.visibility = View.GONE
                 tituloPaciente.visibility = View.GONE
                 timer.visibility = View.GONE
@@ -175,7 +174,8 @@ class PacienteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_paciente)
-        tituloPaciente.setText("Análisis aleatorio")
+        tituloPaciente.setText(R.string.analisis_aleatorio)
+        tituloPacienteHistoricos.visibility = View.GONE
         tituloPaciente.visibility = View.VISIBLE
         timer.visibility = View.GONE
         iniciarTimer.visibility = View.GONE
@@ -200,7 +200,7 @@ class PacienteActivity : AppCompatActivity() {
         logoutPaciente.setOnClickListener {
             session.LogoutUser()
         }
-        var user: HashMap<String, String> = session.getUserDetails()
+        val user: HashMap<String, String> = session.getUserDetails()
         paciente_id = user.get(SessionManager.KEY_NAME)!!
 
 
