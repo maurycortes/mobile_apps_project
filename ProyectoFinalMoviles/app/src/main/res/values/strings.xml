@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">ProyectoFinalMoviles</string>
+
+    <!--Activity Main-->
+    <string-array name="tipo_usuario">
+        <item>Doctor</item>
+        <item>Paciente</item>
+    </string-array>
+
+    <!--Activity Doctor-->
+    <string name="title_activity_doctor">DoctorActivity</string>
+    <string name="menu_doctor_registrar">Registrar pacientes</string>
+    <string name="menu_doctor_descargar_info">Descargar Info</string>
+
+    <!--Activity Paciente-->
+    <string name="title_activity_paciente">PacienteActivity</string>
+    <string name="menu_paciente_aleatorios">Aleatorio</string>
+    <string name="menu_paciente_protocolo">Protocolo</string>
+    <string name="menu_paciente_historicos_aleatorios">Históricos A.</string>
+    <string name="menu_paciente_historicos_protocolo">Históricos P.</string>
+
+    <!--Activity Registro Paciente Nuevo-->
+    <string name="titulo_nombre">Nombre Completo:</string>
+    <string name="titulo_fecha">Fecha de Nacimiento (DD/MM/YYYY):</string>
+    <string name="titulo_sexo">Sexo:</string>
+    <string-array name="sexo">
+        <item>Hombre</item>
+        <item>Mujer</item>
+    </string-array>
+    <string name="titulo_peso">Peso: (en kilogramos)</string>
+    <string name="titulo_altura">Altura: (en centímetros)</string>
+    <string name="titulo_indice_masa_corporal">Índice de Masa Corporal:</string>
+    <string name="guardar_registro_paciente_button">Guardar</string>
+</resources>
