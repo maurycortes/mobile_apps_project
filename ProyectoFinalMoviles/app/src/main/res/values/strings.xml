@@ -32,8 +32,8 @@
     <string name="title_activity_paciente">PacienteActivity</string>
     <string name="menu_paciente_aleatorios">Aleatorio</string>
     <string name="menu_paciente_protocolo">Protocolo</string>
-    <string name="menu_paciente_historicos_aleatorios">Históricos A.</string>
-    <string name="menu_paciente_historicos_protocolo">Históricos P.</string>
+    <string name="menu_paciente_historicos_aleatorios">Aleatorios</string>
+    <string name="menu_paciente_historicos_protocolo">Protocolo</string>
     <string name="analisis_aleatorio">Análisis aleatorio</string>
     <string name="analisis_protocolo">Análisis por protocolo</string>
     <string name="timer_terminado">Terminado!</string>
