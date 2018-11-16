@@ -25,8 +25,8 @@
 
     <EditText
         android:id="@+id/registrarPacienteNuevo"
-        android:layout_width="353dp"
-        android:layout_height="wrap_content"
+        android:layout_width="331dp"
+        android:layout_height="56dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
@@ -40,12 +40,14 @@
 
     <Button
         android:id="@+id/buttonDoctor"
-        android:layout_width="324dp"
+        android:layout_width="326dp"
         android:layout_height="80dp"
         android:layout_marginBottom="84dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/colorSuccess"
+        android:background="@drawable/button_background"
         android:text="@string/registrar_paciente_nuevo_button"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,8 +61,10 @@
         android:id="@+id/logoutDoctor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_background_logout"
         android:text="@string/logout_button"
+        android:textColor="@color/colorLogout"
         android:textSize="20sp"
         app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintLeft_toLeftOf="parent"
