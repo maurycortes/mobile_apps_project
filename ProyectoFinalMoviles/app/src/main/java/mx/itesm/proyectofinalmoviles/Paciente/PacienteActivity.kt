@@ -70,10 +70,10 @@ class PacienteActivity : AppCompatActivity() {
                 diastole.visibility = View.VISIBLE
                 pulso.visibility = View.VISIBLE
                 guardar.visibility = View.VISIBLE
-                sistole.isEnabled = false
-                diastole.isEnabled = false
-                pulso.isEnabled = false
-                guardar.isEnabled = false
+                sistole.isEnabled = true
+                diastole.isEnabled = true
+                pulso.isEnabled = true
+                guardar.isEnabled = true
                 iniciarTimer.isEnabled = true
 
                 iniciarTimer.setOnClickListener {
@@ -98,14 +98,9 @@ class PacienteActivity : AppCompatActivity() {
                             }
                             val dialog: AlertDialog = timerAlert.create()
                             dialog.show()
-
-                            sistole.isEnabled = true
-                            diastole.isEnabled = true
-                            pulso.isEnabled = true
-                            guardar.isEnabled = true
                         }
                     }.start()
-                    iniciarTimer.isEnabled = false
+                    timer.setText(R.string.cinco_minutos)
                 }
 
 
