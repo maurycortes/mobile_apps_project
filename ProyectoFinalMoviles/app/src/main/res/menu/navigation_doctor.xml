@@ -7,6 +7,11 @@
         android:title="@string/menu_doctor_registrar" />
 
     <item
+        android:id="@+id/doctor_registrar_doctor"
+        android:icon="@drawable/baseline_local_hospital_black_24dp"
+        android:title="@string/menu_doctor_registrar_doctor" />
+
+    <item
         android:id="@+id/doctor_descargar_informacion"
         android:icon="@drawable/baseline_assessment_black_24dp"
         android:title="@string/menu_doctor_descargar_info" />

@@ -15,10 +15,13 @@
 
     <!--Activity Doctor-->
     <string name="title_activity_doctor">DoctorActivity</string>
-    <string name="menu_doctor_registrar">Registrar pacientes</string>
+    <string name="menu_doctor_registrar">Nuevo paciente</string>
+    <string name="menu_doctor_registrar_doctor">Nuevo doctor</string>
     <string name="menu_doctor_descargar_info">Descargar Info</string>
     <string name="registro_paciente">Registro de Paciente Nuevo</string>
     <string name="registro_paciente_button">Registrar</string>
+    <string name="registro_doctor">Registro de Doctor Nuevo</string>
+    <string name="registro_doctor_button">Registrar</string>
     <string name="descargar_info">Descarga de información de pacientes</string>
     <string name="descargar_info_button">Descargar</string>
     <string name="registro_paciente_nuevo">Registro de Paciente Nuevo</string>
@@ -36,7 +39,7 @@
     <string name="menu_paciente_historicos_protocolo">Protocolo</string>
     <string name="analisis_aleatorio">Análisis aleatorio</string>
     <string name="analisis_protocolo">Análisis por protocolo</string>
-    <string name="timer_terminado">Terminado!</string>
+    <string name="timer_terminado">Fin!</string>
     <string name="titulo_historicos"> Datos Históricos</string>
     <string name="paciente_default">Paciente:</string>
     <string name="titulo_paciente">Titulo Paciente</string>
