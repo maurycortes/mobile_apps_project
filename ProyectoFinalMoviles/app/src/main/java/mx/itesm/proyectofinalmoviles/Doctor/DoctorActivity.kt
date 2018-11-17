@@ -36,6 +36,7 @@ class DoctorActivity : AppCompatActivity() {
         const val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
     }
     lateinit var doctor_id: String
+    lateinit var listDoctores: MutableList<Doctor>
     lateinit var listRegistros: MutableList<Registro>
     lateinit var listPacientes: MutableList<Paciente>
     lateinit var listPendientes: MutableList<PacientesDoctores>
@@ -56,6 +57,22 @@ class DoctorActivity : AppCompatActivity() {
 
                 buttonDoctor.setOnClickListener {
                     registrarPaciente()
+                }
+
+                logoutDoctor.setOnClickListener {
+                    session.LogoutUser()
+                }
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.doctor_registrar_doctor -> {
+                supportActionBar!!.title = doctor_title
+                tituloDoctor.setText(R.string.registro_doctor)
+                buttonDoctor.setText(R.string.registro_doctor_button)
+                registrarPacienteNuevo.visibility = View.VISIBLE
+                opcion = "Registro Doctor"
+
+                buttonDoctor.setOnClickListener {
+                    registrarDoctor()
                 }
 
                 logoutDoctor.setOnClickListener {
@@ -108,10 +125,52 @@ class DoctorActivity : AppCompatActivity() {
         buttonDoctor.setOnClickListener {
             if (opcion == "Registro Paciente") {
                 registrarPaciente()
-            } else {
+            } else if (opcion == "Registro Doctor") {
+                registrarDoctor()
+            }else {
                 descargarInformacion()
             }
         }
+
+
+
+
+        //Reading doctors information
+        val mFirebaseDatabase_Doctores: FirebaseDatabase
+        val mDatabaseReference_Doctores: DatabaseReference
+        val mChildEventListener_Doctores: ChildEventListener
+        listDoctores = mutableListOf()
+        mFirebaseDatabase_Doctores = FirebaseDatabase.getInstance()
+        mDatabaseReference_Doctores = mFirebaseDatabase_Doctores.getReference().child("doctor")
+        mChildEventListener_Doctores = object : ChildEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+            }
+
+            override fun onChildMoved(p0: DataSnapshot?, p1: String?) {
+                val doctor = p0!!.getValue(Doctor::class.java)
+                listDoctores.add(doctor!!)
+            }
+
+            override fun onChildChanged(p0: DataSnapshot?, p1: String?) {
+                val doctor = p0!!.getValue(Doctor::class.java)
+                listDoctores.add(doctor!!)
+            }
+
+            override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
+                val doctor = p0!!.getValue(Doctor::class.java)
+                listDoctores.add(doctor!!)
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot?) {
+                val doctor = p0!!.getValue(Doctor::class.java)
+                listDoctores.add(doctor!!)
+            }
+        }
+        mDatabaseReference_Doctores.addChildEventListener(mChildEventListener_Doctores)
+
+
+
+
 
         //Reading patients information
         val mFirebaseDatabase_Registros: FirebaseDatabase
@@ -234,7 +293,7 @@ class DoctorActivity : AppCompatActivity() {
 
         if (username == "") {
             Toast.makeText(applicationContext, "Introduzca un nombre", Toast.LENGTH_LONG).show()
-        } else {
+        } else if (doctor_id != "admin") {
 
             /*
             * VALIDAR QUE EL USUARIO NO EXISTA YA EN LA TABLA DE PACIENTES, sacar el user_status = "Existe" o "No existe"
@@ -278,11 +337,52 @@ class DoctorActivity : AppCompatActivity() {
             else {
                 Toast.makeText(applicationContext, "Hubo un error en el registro de paciente.", Toast.LENGTH_LONG).show()
             }
+        } else {
+            Toast.makeText(applicationContext, "Este doctor no tiene permitido registrar pacientes, solo doctores.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+
+
+
+    fun registrarDoctor() {
+        val nombreDoctorNuevo = findViewById(R.id.registrarPacienteNuevo) as EditText?
+        val username = nombreDoctorNuevo!!.text.toString()
+        val usernameFinal = "doctor_" + username
+        username_exists = false
+
+        if (usernameFinal == "") {
+            Toast.makeText(applicationContext, "Introduzca un nombre", Toast.LENGTH_LONG).show()
+        } else if (doctor_id == "admin") {
+
+            for (r in listDoctores) {
+                if (r.id_doctor == usernameFinal) {
+                    username_exists = true
+                }
+            }
+
+            if (username_exists) {
+                Toast.makeText(applicationContext, "El doctor ya existe.", Toast.LENGTH_LONG).show()
+            } else {
+                val mFirebaseDatabase: FirebaseDatabase
+                val mDatabaseReference: DatabaseReference
+                mFirebaseDatabase = FirebaseDatabase.getInstance()
+                mDatabaseReference = mFirebaseDatabase.getReference().child("doctor")
+                val doctorNuevo = Doctor(usernameFinal)
+                mDatabaseReference.push().setValue(doctorNuevo)
+                val mensajeDoctorRegistrado = "Doctor registrado. Su id es: " + usernameFinal
+                Toast.makeText(applicationContext, mensajeDoctorRegistrado, Toast.LENGTH_LONG).show()
+            }
+
+        } else {
+            Toast.makeText(applicationContext, "Doctor sin permisos para dar de alta otros doctores.", Toast.LENGTH_LONG).show()
         }
 
-
-
     }
+
+
+
+
 
     fun descargarInformacion() {
 
