@@ -15,8 +15,8 @@
 
     <!--Activity Doctor-->
     <string name="title_activity_doctor">DoctorActivity</string>
-    <string name="menu_doctor_registrar">Nuevo paciente</string>
-    <string name="menu_doctor_registrar_doctor">Nuevo doctor</string>
+    <string name="menu_doctor_registrar">Paciente</string>
+    <string name="menu_doctor_registrar_doctor">Doctor</string>
     <string name="menu_doctor_descargar_info">Descargar Info</string>
     <string name="registro_paciente">Registro de Paciente Nuevo</string>
     <string name="registro_paciente_button">Registrar</string>

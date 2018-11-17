@@ -104,7 +104,7 @@ class DoctorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor)
 
-
+        opcion = "Registro Paciente"
         session = SessionManager(applicationContext)
         session.checkLogin()
         logoutDoctor.setOnClickListener {
@@ -427,10 +427,29 @@ class DoctorActivity : AppCompatActivity() {
                         //Initializing the list of registers
                         downloadRegisters = arrayListOf()
 
-                        for (r in listRegistros) {
-                            val newRegister = RegistrosCSV(r.id_username, r.sistole, r.diastole, r.pulso, r.tipo, r.fecha)
-                            downloadRegisters.add(newRegister)
+                        if  (doctor_id == "admin") {
+                            for (r in listRegistros) {
+                                val newRegister = RegistrosCSV(r.id_username, r.sistole, r.diastole, r.pulso, r.tipo, r.fecha)
+                                downloadRegisters.add(newRegister)
+                            }
+                        } else { //download only this doctor's patients information
+                            val pacientesForThisDoctor: ArrayList<String> = arrayListOf()
+                            //get pacientes for this specific doctor
+                            for (r in listPendientes) {
+                                if (r.id_doctor == doctor_id) {
+                                    pacientesForThisDoctor.add(r.id_username)
+                                }
+                            }
+                            //save only the pacients for this doctor
+                            for (r in listRegistros) {
+                                if (r.id_username in pacientesForThisDoctor) {
+                                    val newRegister = RegistrosCSV(r.id_username, r.sistole, r.diastole, r.pulso, r.tipo, r.fecha)
+                                    downloadRegisters.add(newRegister)
+                                }
+                            }
                         }
+
+
 
                         for (r in downloadRegisters) {
                             val data = arrayOf(
