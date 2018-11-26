@@ -1,7 +1,4 @@
-# mobile_apps_project
-El repositorio para el control de versiones del proyecto final del equipo "Los Cuatro" de la clase de Desarrollo de aplicaciones móviles. Proyecto: "Medicina. Registro y seguimiento de la presión arterial"
-
-# <nombre el proyecto>
+# Monitoreo y Seguimiento de la Presión Arterial
 
 ### Objetivo
 Desarrollar una aplicación para Android utilizando el lenguaje de programación Kotlin, que ayude a monitorear y dar seguimiento a la información de pacientes que toman su presión arterial, para realizar análisis posteriores y definir ciertos patrones entre pacientes.
