@@ -69,4 +69,12 @@ class RegistroPacienteNuevo : AppCompatActivity() {
             finish()
         }
     }
+
+
+
+
+    override fun onBackPressed() {
+        session = SessionManager(applicationContext)
+        session.LogoutUser()
+    }
 }

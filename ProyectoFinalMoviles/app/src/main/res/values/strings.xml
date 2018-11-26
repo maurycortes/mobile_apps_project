@@ -40,7 +40,8 @@
     <string name="analisis_aleatorio">Análisis aleatorio</string>
     <string name="analisis_protocolo">Análisis por protocolo</string>
     <string name="timer_terminado">Fin!</string>
-    <string name="titulo_historicos"> Datos Históricos</string>
+    <string name="titulo_historicos_aleatorios">Datos Aleatorios</string>
+    <string name="titulo_historicos_protocolo">Datos Protocolo</string>
     <string name="paciente_default">Paciente:</string>
     <string name="titulo_paciente">Titulo Paciente</string>
     <string name="cinco_minutos">5:00</string>

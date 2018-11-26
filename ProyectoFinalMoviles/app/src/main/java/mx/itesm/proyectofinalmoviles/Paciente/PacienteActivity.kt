@@ -118,6 +118,7 @@ class PacienteActivity : AppCompatActivity() {
             }
             R.id.historicos_aleatorio -> {
                 supportActionBar!!.title = paciente_title
+                tituloPacienteHistoricos.setText(R.string.titulo_historicos_aleatorios)
                 tituloPacienteHistoricos.visibility = View.VISIBLE
                 tituloPaciente.visibility = View.INVISIBLE
                 timer.visibility = View.INVISIBLE
@@ -141,6 +142,7 @@ class PacienteActivity : AppCompatActivity() {
             }
             R.id.historicos_protocolo -> {
                 supportActionBar!!.title = paciente_title
+                tituloPacienteHistoricos.setText(R.string.titulo_historicos_protocolo)
                 tituloPacienteHistoricos.visibility = View.VISIBLE
                 tituloPaciente.visibility = View.INVISIBLE
                 timer.visibility = View.INVISIBLE
@@ -317,5 +319,14 @@ class PacienteActivity : AppCompatActivity() {
 
         tempData.reverse() //Para obtener los datos de más nuevos a más viejos
         return tempData
+    }
+
+
+
+
+
+
+    override fun onBackPressed() {
+        // Do Here what ever you want do on back press;
     }
 }

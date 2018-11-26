@@ -502,4 +502,9 @@ class DoctorActivity : AppCompatActivity() {
             }
         }
     }
+
+
+    override fun onBackPressed() {
+        // Do Here what ever you want do on back press;
+    }
 }
