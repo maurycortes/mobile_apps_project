@@ -36,7 +36,7 @@ Fecha de última actualización: 22/11/2018
 
 | Nombre  | Email |
 | ------------- | ------------- |
-| Doctor  | - , - |
+| Doctor José Luis González Guerra | - , - |
 
 ### Institución
 
