@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/toma_datos_aleatorio"
+        android:icon="@drawable/baseline_assignment_black_24dp"
+        android:title="@string/menu_paciente_aleatorios" />
+
+    <item
+        android:id="@+id/toma_datos_protocolo"
+        android:icon="@drawable/baseline_alarm_on_black_24dp"
+        android:title="@string/menu_paciente_protocolo" />
+
+    <item
+        android:id="@+id/historicos_aleatorio"
+        android:icon="@drawable/baseline_list_black_24dp"
+        android:title="@string/menu_paciente_historicos_aleatorios" />
+
+    <item
+        android:id="@+id/historicos_protocolo"
+        android:icon="@drawable/baseline_history_black_24dp"
+        android:title="@string/menu_paciente_historicos_protocolo" />
+
+</menu>

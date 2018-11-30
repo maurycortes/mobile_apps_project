@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">ProyectoFinalMoviles</string>
+
+    <!--Activity Main-->
+    <string-array name="tipo_usuario">
+        <item>Doctor</item>
+        <item>Paciente</item>
+    </string-array>
+    <string name="mensaje_bienvenida">Bienvenido a la aplicación de monitoreo</string>
+    <string name="id_usuario">ID Usuario</string>
+    <string name="id_doctor">ID Doctor</string>
+    <string name="entrar_button">Entrar</string>
+
+
+
+    <!--Activity Doctor-->
+    <string name="title_activity_doctor">DoctorActivity</string>
+    <string name="menu_doctor_registrar">Paciente</string>
+    <string name="menu_doctor_registrar_doctor">Doctor</string>
+    <string name="menu_doctor_descargar_info">Descargar Info</string>
+    <string name="registro_paciente">Registro de Paciente Nuevo</string>
+    <string name="registro_paciente_button">Registrar</string>
+    <string name="registro_doctor">Registro de Doctor Nuevo</string>
+    <string name="registro_doctor_button">Registrar</string>
+    <string name="descargar_info">Descarga de información de pacientes</string>
+    <string name="descargar_info_button">Descargar</string>
+    <string name="registro_paciente_nuevo">Registro de Paciente Nuevo</string>
+    <string name="doctor_default">Doctor:</string>
+    <string name="nombre_paciente">Nombre Paciente</string>
+    <string name="registrar_paciente_nuevo_button">Registrar</string>
+
+
+
+    <!--Activity Paciente-->
+    <string name="title_activity_paciente">PacienteActivity</string>
+    <string name="menu_paciente_aleatorios">Aleatorio</string>
+    <string name="menu_paciente_protocolo">Protocolo</string>
+    <string name="menu_paciente_historicos_aleatorios">Aleatorios</string>
+    <string name="menu_paciente_historicos_protocolo">Protocolo</string>
+    <string name="analisis_aleatorio">Análisis aleatorio</string>
+    <string name="analisis_protocolo">Análisis por protocolo</string>
+    <string name="timer_terminado">Fin!</string>
+    <string name="titulo_historicos_aleatorios">Datos Aleatorios</string>
+    <string name="titulo_historicos_protocolo">Datos Protocolo</string>
+    <string name="paciente_default">Paciente:</string>
+    <string name="titulo_paciente">Titulo Paciente</string>
+    <string name="cinco_minutos">5:00</string>
+    <string name="iniciar_timer_button">Iniciar Tiempo</string>
+    <string name="captura_sistole">Captura Sístole</string>
+    <string name="captura_diastole">Captura Diástole</string>
+    <string name="captura_pulso">Captura Pulso</string>
+    <string name="guardar_button">Guardar</string>
+    <string name="logout_button">Salir</string>
+
+
+    <!--Activity Registro Paciente Nuevo-->
+    <string name="titulo_nombre">Nombre Completo:</string>
+    <string name="titulo_fecha">Fecha de Nacimiento (DD/MM/YYYY):</string>
+    <string name="titulo_sexo">Sexo:</string>
+    <string-array name="sexo">
+        <item></item>
+        <item>Hombre</item>
+        <item>Mujer</item>
+    </string-array>
+    <string name="titulo_peso">Peso: (en kilogramos)</string>
+    <string name="titulo_altura">Altura: (en centímetros)</string>
+    <string name="titulo_indice_masa_corporal">Índice de Masa Corporal:</string>
+    <string name="guardar_registro_paciente_button">Guardar</string>
+</resources>
