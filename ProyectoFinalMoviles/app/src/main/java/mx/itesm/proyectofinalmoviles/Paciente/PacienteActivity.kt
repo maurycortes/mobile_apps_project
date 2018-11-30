@@ -1,5 +1,7 @@
 package mx.itesm.proyectofinalmoviles.Paciente
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
@@ -46,10 +48,11 @@ class PacienteActivity : AppCompatActivity() {
                 guardar.isEnabled = true
 
                 guardar.setOnClickListener {
-                    setDatosPacienteValidation("Aleatorio")
-                    sistole.text.clear()
-                    diastole.text.clear()
-                    pulso.text.clear()
+                    if(haveNetworkConnection()) {
+                        setDatosPacienteValidation("Aleatorio")
+                    } else {
+                        Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 logoutPaciente.setOnClickListener {
@@ -105,10 +108,11 @@ class PacienteActivity : AppCompatActivity() {
 
 
                 guardar.setOnClickListener {
-                    setDatosPacienteValidation("Protocolo")
-                    sistole.text.clear()
-                    diastole.text.clear()
-                    pulso.text.clear()
+                    if(haveNetworkConnection()) {
+                        setDatosPacienteValidation("Protocolo")
+                    } else {
+                        Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 logoutPaciente.setOnClickListener {
@@ -196,10 +200,11 @@ class PacienteActivity : AppCompatActivity() {
         list_historicos_aleatorio.visibility = View.INVISIBLE
         list_historicos_protocolo.visibility = View.INVISIBLE
         guardar.setOnClickListener {
-            setDatosPacienteValidation("Aleatorio")
-            sistole.text.clear()
-            diastole.text.clear()
-            pulso.text.clear()
+            if(haveNetworkConnection()) {
+                setDatosPacienteValidation("Aleatorio")
+            } else {
+                Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+            }
         }
 
 
@@ -328,5 +333,30 @@ class PacienteActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         // Do Here what ever you want do on back press;
+    }
+
+
+
+
+
+
+
+
+    private fun haveNetworkConnection(): Boolean {
+        var haveConnectedWifi = false
+        var haveConnectedMobile = false
+
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val netInfo = cm.allNetworkInfo
+        for (ni in netInfo) {
+            if (ni.typeName.equals("WIFI", ignoreCase = true))
+                if (ni.isConnected)
+                    haveConnectedWifi = true
+            if (ni.typeName.equals("MOBILE", ignoreCase = true))
+                if (ni.isConnected)
+                    haveConnectedMobile = true
+        }
+        return haveConnectedWifi || haveConnectedMobile
     }
 }

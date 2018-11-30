@@ -58,6 +58,7 @@
     <string name="titulo_fecha">Fecha de Nacimiento (DD/MM/YYYY):</string>
     <string name="titulo_sexo">Sexo:</string>
     <string-array name="sexo">
+        <item></item>
         <item>Hombre</item>
         <item>Mujer</item>
     </string-array>

@@ -25,6 +25,8 @@ import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.Manifest
+import android.content.Context
+import android.net.ConnectivityManager
 
 
 class DoctorActivity : AppCompatActivity() {
@@ -56,7 +58,11 @@ class DoctorActivity : AppCompatActivity() {
                 opcion = "Registro Paciente"
 
                 buttonDoctor.setOnClickListener {
-                    registrarPaciente()
+                    if(haveNetworkConnection()) {
+                        registrarPaciente()
+                    } else {
+                        Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 logoutDoctor.setOnClickListener {
@@ -72,7 +78,11 @@ class DoctorActivity : AppCompatActivity() {
                 opcion = "Registro Doctor"
 
                 buttonDoctor.setOnClickListener {
-                    registrarDoctor()
+                    if(haveNetworkConnection()) {
+                        registrarDoctor()
+                    } else {
+                        Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 logoutDoctor.setOnClickListener {
@@ -88,7 +98,11 @@ class DoctorActivity : AppCompatActivity() {
                 opcion = "Descarga Informacion"
 
                 buttonDoctor.setOnClickListener {
-                    descargarInformacion()
+                    if(haveNetworkConnection()) {
+                        descargarInformacion()
+                    } else {
+                        Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 logoutDoctor.setOnClickListener {
@@ -123,12 +137,16 @@ class DoctorActivity : AppCompatActivity() {
 
 
         buttonDoctor.setOnClickListener {
-            if (opcion == "Registro Paciente") {
-                registrarPaciente()
-            } else if (opcion == "Registro Doctor") {
-                registrarDoctor()
-            }else {
-                descargarInformacion()
+            if(haveNetworkConnection()) {
+                if (opcion == "Registro Paciente") {
+                    registrarPaciente()
+                } else if (opcion == "Registro Doctor") {
+                    registrarDoctor()
+                } else {
+                    descargarInformacion()
+                }
+            } else {
+                Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -506,5 +524,31 @@ class DoctorActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         // Do Here what ever you want do on back press;
+    }
+
+
+
+
+
+
+
+
+
+    private fun haveNetworkConnection(): Boolean {
+        var haveConnectedWifi = false
+        var haveConnectedMobile = false
+
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val netInfo = cm.allNetworkInfo
+        for (ni in netInfo) {
+            if (ni.typeName.equals("WIFI", ignoreCase = true))
+                if (ni.isConnected)
+                    haveConnectedWifi = true
+            if (ni.typeName.equals("MOBILE", ignoreCase = true))
+                if (ni.isConnected)
+                    haveConnectedMobile = true
+        }
+        return haveConnectedWifi || haveConnectedMobile
     }
 }

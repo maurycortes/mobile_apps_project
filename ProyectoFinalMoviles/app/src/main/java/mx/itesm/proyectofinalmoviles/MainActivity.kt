@@ -1,5 +1,6 @@
 package mx.itesm.proyectofinalmoviles
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,9 @@ import mx.itesm.proyectofinalmoviles.Doctor.DoctorActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import mx.itesm.proyectofinalmoviles.Doctor.Doctor
 import mx.itesm.proyectofinalmoviles.Paciente.*
+import android.net.ConnectivityManager
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -184,7 +188,7 @@ class MainActivity : AppCompatActivity() {
         * */
 
         entrar.setOnClickListener {
-            doctor_status = "nuevo"
+            doctor_status = ""
             paciente = "nuevo"
             match = false
             val userType = findViewById(R.id.tipoUsuario) as Spinner
@@ -194,66 +198,73 @@ class MainActivity : AppCompatActivity() {
             val doctorText = findViewById(R.id.doctor) as EditText
             val doctor_id = doctorText.text.toString()
 
-            if (user == "Paciente") {
+            /*
+            * Checking Connection
+            * */
+            if(haveNetworkConnection()) {
 
-                for (r in listPendientes) {
-                    if (r.id_username == user_id && r.id_doctor == doctor_id) {
-                        paciente = "pendiente"
-                        match = true
+                if (user == "Paciente") {
+
+                    for (r in listPendientes) {
+                        if (r.id_username == user_id && r.id_doctor == doctor_id) {
+                            paciente = "pendiente"
+                            match = true
+                        }
                     }
-                }
 
-                for (r in listPacientes) {
-                    if (r.id_username == user_id) {
-                        paciente = "existe"
+                    for (r in listPacientes) {
+                        if (r.id_username == user_id) {
+                            paciente = "existe"
+                        }
                     }
-                }
 
-                for (r in listDoctores) {
-                    val doctorLookup = "doctor_" + doctor_id
-                    if (r.id_doctor == doctorLookup) {
-                        doctor_status = "existe"
+                    for (r in listDoctores) {
+                        val doctorLookup = "doctor_" + doctor_id
+                        if (r.id_doctor == doctorLookup) {
+                            doctor_status = "existe"
+                        }
                     }
-                }
 
-                /*
-                * VALIDACION DE SI EL PACIENTE ES NUEVO O YA TIENE DATOS
-                * */
-
-                if (paciente == "existe" && doctor_status == "existe" && match) {
-                    session.createLoginSession(user_id, "paciente") //Create new session
-                    val i = Intent(applicationContext, PacienteActivity::class.java)
-                    startActivity(i)
-                    finish()
-                } else if (paciente == "pendiente" && match) {
-                    val intent = Intent(this, RegistroPacienteNuevo::class.java)
-                    intent.putExtra(PACIENTE_ID, user_id)
-                    intent.putExtra(DOCTOR_ID, doctor_id)
-                    startActivityForResult(intent, USER_CODE)
-                    finish()
+                    /*
+                    * VALIDACION DE SI EL PACIENTE ES NUEVO O YA TIENE DATOS
+                    * */
+                    if (paciente == "existe" && doctor_status == "existe" && match) {
+                        session.createLoginSession(user_id, "paciente") //Create new session
+                        val i = Intent(applicationContext, PacienteActivity::class.java)
+                        startActivity(i)
+                        finish()
+                    } else if (paciente == "pendiente" && match) {
+                        val intent = Intent(this, RegistroPacienteNuevo::class.java)
+                        intent.putExtra(PACIENTE_ID, user_id)
+                        intent.putExtra(DOCTOR_ID, doctor_id)
+                        startActivityForResult(intent, USER_CODE)
+                        finish()
+                    } else {
+                        Toast.makeText(applicationContext, "Credenciales incorrectas. Valide con su doctor.", Toast.LENGTH_LONG).show()
+                    }
                 } else {
-                    Toast.makeText(applicationContext, "Credenciales incorrectas. Valide con su doctor.", Toast.LENGTH_LONG).show()
+
+                    for (r in listDoctores) {
+                        if (r.id_doctor == doctor_id) {
+                            doctor_status = "existe"
+                        }
+                    }
+
+                    /*
+                    * VALIDAR QUE EL DOCTOR EXISTA Y MANDAR ESE ID AL SIGUIENTE INTENT
+                    * */
+                    if (doctor_status == "existe") {
+                        val doctor_id_clean = doctor_id.substring(7, doctor_id.length)
+                        session.createLoginSession(doctor_id_clean, "doctor")
+                        val i = Intent(applicationContext, DoctorActivity::class.java)
+                        startActivity(i)
+                        finish()
+                    } else {
+                        Toast.makeText(applicationContext, "El doctor no está dado de alta.", Toast.LENGTH_LONG).show()
+                    }
                 }
             } else {
-
-                for (r in listDoctores) {
-                    if (r.id_doctor == doctor_id) {
-                        doctor_status = "existe"
-                    }
-                }
-
-                /*
-                * VALIDAR QUE EL DOCTOR EXISTA Y MANDAR ESE ID AL SIGUIENTE INTENT
-                * */
-                if(doctor_status == "existe") {
-                    val doctor_id_clean = doctor_id.substring(7, doctor_id.length)
-                    session.createLoginSession(doctor_id_clean, "doctor")
-                    val i = Intent(applicationContext, DoctorActivity::class.java)
-                    startActivity(i)
-                    finish()
-                } else {
-                    Toast.makeText(applicationContext, "El doctor no está dado de alta.", Toast.LENGTH_LONG).show()
-                }
+                Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -294,5 +305,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         // Do Here what ever you want do on back press;
+    }
+
+
+
+
+
+
+
+    private fun haveNetworkConnection(): Boolean {
+        var haveConnectedWifi = false
+        var haveConnectedMobile = false
+
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val netInfo = cm.allNetworkInfo
+        for (ni in netInfo) {
+            if (ni.typeName.equals("WIFI", ignoreCase = true))
+                if (ni.isConnected)
+                    haveConnectedWifi = true
+            if (ni.typeName.equals("MOBILE", ignoreCase = true))
+                if (ni.isConnected)
+                    haveConnectedMobile = true
+        }
+        return haveConnectedWifi || haveConnectedMobile
     }
 }

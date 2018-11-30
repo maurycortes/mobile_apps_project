@@ -1,6 +1,8 @@
 package mx.itesm.proyectofinalmoviles.Paciente
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -46,27 +48,33 @@ class RegistroPacienteNuevo : AppCompatActivity() {
             val imcPaciente = findViewById(R.id.indiceMasaCorporal) as EditText
             val indiceMasaCorporal = imcPaciente.text.toString()
 
+            if(nombre == "" || fecha == "" || sexo == "" || peso == "" || altura == "" || indiceMasaCorporal == "") {
+                Toast.makeText(applicationContext, "Rellena todos los campos.", Toast.LENGTH_LONG).show()
+            } else {
+                if(haveNetworkConnection()) {
+                    /*
+                * METER LOS DATOS A LA TABLA DE USUARIOS ACTUALIZANDO LA INFORMACIÓN DE ESTE PACIENTE (paciente_id)
+                * */
+                    //Writing new user information
+                    val mFirebaseDatabase: FirebaseDatabase
+                    val mDatabaseReference: DatabaseReference
+                    mFirebaseDatabase = FirebaseDatabase.getInstance()
+                    mDatabaseReference = mFirebaseDatabase.getReference().child("pacientes")
+                    val paciente = Paciente(paciente_id, nombre, fecha, sexo, peso, altura, indiceMasaCorporal, doctor_id)
+                    mDatabaseReference.push().setValue(paciente)
+                    Toast.makeText(applicationContext, "Información guardada.", Toast.LENGTH_LONG).show()
 
+                    //Ir a la pagina principal de los pacientes
+                    session = SessionManager(applicationContext)
+                    session.createLoginSession(paciente_id, "paciente")
+                    val i = Intent(applicationContext, PacienteActivity::class.java)
+                    startActivity(i)
+                    finish()
+                } else {
+                    Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+                }
+            }
 
-            /*
-            * METER LOS DATOS A LA TABLA DE USUARIOS ACTUALIZANDO LA INFORMACIÓN DE ESTE PACIENTE (paciente_id)
-            * */
-            //Writing new user information
-            val mFirebaseDatabase: FirebaseDatabase
-            val mDatabaseReference: DatabaseReference
-            mFirebaseDatabase = FirebaseDatabase.getInstance()
-            mDatabaseReference = mFirebaseDatabase.getReference().child("pacientes")
-            val paciente = Paciente(paciente_id, nombre, fecha, sexo, peso, altura, indiceMasaCorporal, doctor_id)
-            mDatabaseReference.push().setValue(paciente)
-            Toast.makeText(applicationContext, "Información guardada.", Toast.LENGTH_LONG).show()
-
-
-            //Ir a la pagina principal de los pacientes
-            session = SessionManager(applicationContext)
-            session.createLoginSession(paciente_id, "paciente")
-            val i = Intent(applicationContext, PacienteActivity::class.java)
-            startActivity(i)
-            finish()
         }
     }
 
@@ -76,5 +84,33 @@ class RegistroPacienteNuevo : AppCompatActivity() {
     override fun onBackPressed() {
         session = SessionManager(applicationContext)
         session.LogoutUser()
+    }
+
+
+
+
+
+
+
+
+
+
+
+    private fun haveNetworkConnection(): Boolean {
+        var haveConnectedWifi = false
+        var haveConnectedMobile = false
+
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val netInfo = cm.allNetworkInfo
+        for (ni in netInfo) {
+            if (ni.typeName.equals("WIFI", ignoreCase = true))
+                if (ni.isConnected)
+                    haveConnectedWifi = true
+            if (ni.typeName.equals("MOBILE", ignoreCase = true))
+                if (ni.isConnected)
+                    haveConnectedMobile = true
+        }
+        return haveConnectedWifi || haveConnectedMobile
     }
 }
