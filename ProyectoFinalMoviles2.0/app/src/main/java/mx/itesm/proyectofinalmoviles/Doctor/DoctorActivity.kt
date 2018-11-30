@@ -58,7 +58,11 @@ class DoctorActivity : AppCompatActivity() {
                 opcion = "Registro Paciente"
 
                 buttonDoctor.setOnClickListener {
-                    registrarPaciente()
+                    if(haveNetworkConnection()) {
+                        registrarPaciente()
+                    } else {
+                        Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 logoutDoctor.setOnClickListener {
@@ -74,7 +78,11 @@ class DoctorActivity : AppCompatActivity() {
                 opcion = "Registro Doctor"
 
                 buttonDoctor.setOnClickListener {
-                    registrarDoctor()
+                    if(haveNetworkConnection()) {
+                        registrarDoctor()
+                    } else {
+                        Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 logoutDoctor.setOnClickListener {
@@ -90,7 +98,11 @@ class DoctorActivity : AppCompatActivity() {
                 opcion = "Descarga Informacion"
 
                 buttonDoctor.setOnClickListener {
-                    descargarInformacion()
+                    if(haveNetworkConnection()) {
+                        descargarInformacion()
+                    } else {
+                        Toast.makeText(applicationContext, "No tiene conexión a internet.", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 logoutDoctor.setOnClickListener {

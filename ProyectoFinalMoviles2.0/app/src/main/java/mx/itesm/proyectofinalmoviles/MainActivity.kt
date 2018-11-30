@@ -6,20 +6,11 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.database.*
 import mx.itesm.proyectofinalmoviles.Doctor.DoctorActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import mx.itesm.proyectofinalmoviles.Doctor.Doctor
 import mx.itesm.proyectofinalmoviles.Paciente.*
-import android.support.annotation.NonNull
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import kotlin.math.log
-//import com.sun.jndi.dns.ResourceRecord.getTypeName
-import android.net.NetworkInfo
-import android.content.Context.CONNECTIVITY_SERVICE
-import android.support.v4.content.ContextCompat.getSystemService
 import android.net.ConnectivityManager
 
 
