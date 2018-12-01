@@ -14,8 +14,6 @@ import mx.itesm.proyectofinalmoviles.Paciente.*
 import android.net.ConnectivityManager
 
 
-
-
 class MainActivity : AppCompatActivity() {
 
     companion object {
